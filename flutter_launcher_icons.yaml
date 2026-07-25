@@ -1,0 +1,14 @@
+flutter_launcher_icons:
+  image_path: "assets/icons/admin.png"
+  android: "ic_launcher"
+  min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/admin.png"
+  adaptive_icon_monochrome: "assets/icons/admin.png"
+  ios: true
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/icons/admin.png"
+    background_color: "#ffffff"
+    theme_color: "#6C63FF"

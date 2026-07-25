@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Posts: anyone can read (including anonymous), only authenticated can write
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+
+      // Comments subcollection: any authenticated user can read & create, delete only with auth
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if request.auth != null;
+        allow update, delete: if request.auth != null;
+      }
+
+      // Reactions subcollection: any authenticated user can read & write
+      match /reactions/{reactionId} {
+        allow read: if true;
+        allow write: if request.auth != null;
+      }
+    }
+
+    // Collection group rule for comments (required for collectionGroup queries)
+    match /{path=**}/comments/{commentId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Users: authenticated users can read/write their own doc
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Views: any authenticated user (incl. anonymous) can write
+    match /views/{viewId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Bookmarks: any authenticated user
+    match /bookmarks/{bookmarkId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Poll votes: any authenticated user
+    match /pollVotes/{voteId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Book subcategories: anyone can read, authenticated can write
+    match /bookSubcategories/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Categories: anyone can read, authenticated can write
+    match /categories/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
