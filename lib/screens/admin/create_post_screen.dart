@@ -280,8 +280,19 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         );
       }
 
+      String derivedTitle = _descCtrl.text.trim();
+      if (derivedTitle.contains("\n")) {
+        derivedTitle = derivedTitle.split("\n").first.trim();
+      }
+      if (derivedTitle.length > 55) {
+        derivedTitle = "${derivedTitle.substring(0, 55).trim()}...";
+      }
+      if (derivedTitle.isEmpty) {
+        derivedTitle = "New Post";
+      }
+
       final data = {
-        "title": _titleCtrl.text.trim(),
+        "title": derivedTitle,
         "description": _descCtrl.text.trim(),
         "type": _type.name,
         "authorId": uid,
@@ -396,14 +407,11 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Title
-            _InputField(label: "Title", controller: _titleCtrl, textColor: textColor, fillColor: inputFill,
-              validator: (v) => v == null || v.isEmpty ? "Title is required" : null),
-            const SizedBox(height: 14),
+
 
             // Description
             _InputField(label: "Description", controller: _descCtrl, textColor: textColor, fillColor: inputFill,
-              maxLines: 6, validator: (v) => v == null || v.isEmpty ? "Description is required" : null),
+              maxLines: 14, validator: (v) => v == null || v.isEmpty ? "Description is required" : null),
             const SizedBox(height: 14),
 
             // Category + Language

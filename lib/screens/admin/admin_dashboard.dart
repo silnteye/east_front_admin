@@ -111,8 +111,8 @@ class _AdminDashboardScreenState extends ConsumerState<AdminDashboardScreen> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "$count active now",
-                        style: GoogleFonts.inter(fontSize: 10, color: isDark ? Colors.white70 : Colors.black54, fontWeight: FontWeight.w500),
+                        "$count __Online",
+                        style: GoogleFonts.inter(fontSize: 12, color: isDark ? Colors.white70 : Colors.black54, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
